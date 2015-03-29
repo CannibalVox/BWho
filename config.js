@@ -2,6 +2,7 @@ var config = {}
 
 config.redis = {}
 config.postgre = {}
+config.web = {}
 
 config.logging = process.env.NODE_LOGGING || 1;
 config.logging_level = process.env.LOGGING_LEVEL || 'debug';
