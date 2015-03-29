@@ -11,7 +11,7 @@ var _ = require('underscore');
 var winston = require('winston');
 var bull = require('bull');
 
-var rclient = redis.createClient(config.redis.port, config.redis.host);
+var rclient = redis.createClient(config.redis.host);
 
 var logger = new (winston.Logger)({
 	transports: [
