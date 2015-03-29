@@ -13,6 +13,12 @@ var bull = require('bull');
 
 var rclient = redis.createClient(config.redis.port, config.redis.host);
 
+var logger = new (winston.Logger)({
+	transports: [
+	  new (winston.transports.Console)({ level: config.logging_level })
+	]
+});
+
 // var q = kue.createQueue({
 //   prefix: 'q',
 //   redis: {
