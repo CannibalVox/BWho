@@ -11,7 +11,9 @@ var _ = require('underscore');
 var winston = require('winston');
 var bull = require('bull');
 
-var rclient = redis.createClient(config.redis.host);
+var redisUrl   = url.parse(config.redis.host);
+var rclient = require("redis").createClient(redisUrl.port, redisUrl.hostname, {no_ready_check: true});
+rclient.auth(redisUrl.auth.split(":")[1]);
 
 // var q = kue.createQueue({
 //   prefix: 'q',
