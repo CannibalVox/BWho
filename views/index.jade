@@ -1,5 +1,93 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+	a(name='about')
+	.intro-header
+		.container
+			.row
+				.col-lg-12
+					.intro-message
+						h1 Silence Is Golden
+						h3 Separate Signal From Noise With this Page Built Around A Stock Bootstrap Theme
+						hr.intro-divider
+						ul.list-inline.intro-social-buttons
+							li: +button('login', 'primary', 'large')
+								i.fa.fa-sign-in.fa-fw
+								span.network-name Get Started
+							li: +button('https://github.com/CannibalVox/BWho', 'default', 'large')
+								i.fa.fa-github.fa-fw
+								span.network-name Github
+
+	a(name='info')
+	.content-section-a
+		.container
+			.row
+				.col-lg-5.col-sm-6
+					hr.section-heading-spacer
+					.clearfix
+					h2.section-heading Twitter Is An Obnoxious Place
+					p.lead 
+						a(href='https://twitter.com/freebsdgirl') Someone really clever
+						|	fixed that by making a list of 
+						a(href='https://twitter.com/Nero') the 
+						a(href='https://twitter.com/FartToContinue') worst 
+						a(href='https://twitter.com/PlayDangerously') people 
+						a(href='https://twitter.com/roguestargamez') crapping 
+						a(href='https://twitter.com/TheRalphRetort') up 
+						a(href='https://twitter.com/RealVivianJames') the 
+						a(href='https://twitter.com/CHOBITCOIN') joint 
+						|	and autoblocking people who followed a certain number of them.  It worked pretty good.
+				.col-lg-5.col-lg-offset-2.col-sm-6
+					img.img-responsive(src='images/ipad.png')
+
+	.content-section-b
+		.container
+			.row
+				.col-lg-5.col-lg-offset-1.col-sm-push-6.col-sm-6
+					hr.section-heading-spacer
+					.clearfix
+					h2.section-heading There Were Some Problems, Though
+					p.lead 
+						|	The awful people on the original list are all involved in a very specific right-wing movement.  Maybe you have your own jerks unique to your neighborhood.  Or maybe you want to include even more terrible people or tweak things.
+				.col-lg-5.col-sm-pull-6.col-sm-6
+					img.img-responsive(src='images/dog.png')
+
+	.content-section-a
+		.container
+			.row
+				.col-lg-5.col-sm-6
+					hr.section-heading-spacer
+					.clearfix
+					h2.section-heading So I Stole It
+					p.lead 
+						|	I stole the idea and made this website.  I also stole 
+						a(href='http://ironsummitmedia.github.io/startbootstrap-landing-page/') this theme 
+						|	and 
+						a(href='http://deathtothestockphoto.com/') these pictures 
+						|	and probably other things.
+					p.lead
+						|	The site lets you make your own list of awful people and then it builds the block list for you and you can do something else for a little while.  When it's done, you can use a site like 
+						a(href='https://blocktogether.org/') Block Together 
+						|	to share the list with your friends.  Or you could just enjoy the sound of silence.
+				.col-lg-5.col-lg-offset-2.col-sm-6
+					img.img-responsive(src='images/phones.png')
+
+	.jumbotron
+		.container.text-center
+			h1 Find Peace
+			+button('login', 'success', 'large') Make Your List
+
+	hr.section-heading-spacer
+	.clearfix		
+
+	a(name='contact')
+	.banner
+		.container
+			.row
+				.col-lg-6
+					h2 You Should Steal This. It's Only Fair.
+				.col-lg-2
+					ul.list-inline.banner-social-buttons
+						li: +button('https://github.com/CannibalVox/BWho', 'primary', 'large')
+							i.fa.fa-github.fa-fw
+							span.network-name Github
