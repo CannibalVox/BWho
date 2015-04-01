@@ -1,0 +1,81 @@
+extends ../util/layout
+
+block content
+	br.section-heading-spacer
+	.clearfix
+	.page-wrapper
+		.container
+			.row
+				.col-lg-12
+					h1.page-header Account
+
+			.row
+				if(user.providerData.providerId == 'stormpath')
+					.col-lg-5.col-sm-5
+						.panel.panel-primary
+							.panel-heading
+								h3.panel-title Change Password
+							.panel-body
+								#passwordResponse
+								form#change-password(method='POST', action='/account/update-password' novalidate)
+									input(name='_csrf', type='hidden', value=csrfToken)
+									.form-group
+										label(for='oldPassword'): b Current Password:
+										input#oldPassword.form-control(type='password', name='oldPassword')
+									.form-group
+										label(for='password'): b New Password:
+										input#password.form-control(type='password', name='password')
+									.form-group
+										label(for='confirmPassword'): b Confirm Password:
+										input#confirmPassword.form-control(type='password', name='confirmPassword')
+									.form-group
+										button#PasswordButton.btn.search-button.button-primary.pull-right(type='submit') Update
+			.row
+				.col-lg-5.col-sm-5
+					.panel.panel-danger
+						.panel-heading
+							h3.panel-title Delete Account
+						.panel-body
+							- if (delete_error)
+								+alert('danger')
+									p.light #{delete_error}
+							form#delete(method='POST', action='/account/delete' novalidate)
+								input(name='_csrf', type='hidden', value=csrfToken)
+								p.light We will wipe all record of you from our servers. 
+									b You can't undo this!
+								p.light To continue, type 
+									b I'll miss you! 
+									|in the box below.
+								.form-group
+									input#deleteConfirm.form-control(type='text', name='deleteConfirm', placeholder='I\'ll miss you!')
+								.form-group
+									button#DeleteButton.btn.search-button.btn-danger.pull-right(type='submit', disabled) Delete
+
+block scripts
+	script(src='/javascripts/jquery.validate.min.js')
+	script(src='/javascripts/bwho.ajax.js')
+	script(type='text/javascript').
+		$('#deleteConfirm').on('input propertyChange paste', function() {
+			if ($('#deleteConfirm').val() == 'I\'ll miss you!')
+				$('#DeleteButton').removeAttr('disabled');
+			else
+				$('#DeleteButton').attr('disabled','disabled');
+		});
+
+	if(user.providerData.providerId == 'stormpath')
+		script(type='text/javascript').
+			$().ready(function() {
+				$('#change-password').validate({
+					rules: {
+						oldPassword: { required: true},
+						password: { required: true },
+						confirmPassword: {
+							required: true,
+							equalTo: '#password'
+						}
+					}
+				});
+
+				setupForm('/account/update-password', '#change-password', '#PasswordButton', '#passwordResponse','Update','Password successfully updated.');
+
+			});

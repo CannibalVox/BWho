@@ -8,9 +8,11 @@ var url = require('url');
 var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var csurf = require('csurf');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var dashboard = require('./routes/dashboard');
+var account = require('./routes/account');
 
 var redisUrl   = url.parse(config.redis.host);
 var rclient = require("redis").createClient(redisUrl.port, redisUrl.hostname, {no_ready_check: true});
@@ -30,16 +32,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(stormpath.init(app, {
   secretKey: config.stormpath.session_secret,
-  cache: 'memory',
+  cache: 'redis',
+  cacheClient: rclient,
   enableAutoLogin: true,
   enableGivenName:false,
   requireGivenName:false,
   enableSurname:false,
   requireSurname:false,
+  enableConfirmPassword:true,
+  requireConfirmPassword:true,
   enableFacebook:true,
   enableGoogle:true,
   enableForgotPassword:true,
   enableAccountVerification:true,
+  expandProviderData:true,
   social: {
     facebook: {
       appId: config.facebook.appId,
@@ -53,7 +59,8 @@ app.use(stormpath.init(app, {
 }));
 
 app.use('/', routes);
-app.use('/users', users);
+app.use('/dashboard', dashboard);
+app.use('/account', account);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

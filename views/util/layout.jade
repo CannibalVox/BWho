@@ -1,0 +1,57 @@
+include mixins
+
+
+doctype html
+html(lang='en')
+	head
+		title= 'Block Whoever - '+ title
+
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		link(href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css", rel="stylesheet")
+		link(href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css", rel="stylesheet")
+		block head
+	body
+		if user
+			+nav('Block Whoever', 'navbar','/')
+				+nav_left
+					+nav_item('/dashboard', view == 'dashboard' ? 'active' : undefined) Dashboard
+					+nav_item('/contact', view == 'contact' ? 'active' : undefined) Contact
+				+nav_right
+					+nav_item('/account', view == 'account' ? 'active' : undefined) 
+						case user.providerData.providerId
+							when 'google'
+								span(style='color:#d50f25'): i.fa.fa-google.fa-lg
+								span &nbsp; #{user.fullName}
+							when 'facebook'
+								span(style='color:#3b5998'): i.fa.fa-facebook-square.fa-lg
+								span &nbsp; #{user.fullName}
+							default
+								i.fa.fa-user.fa-lg
+								span &nbsp; #{user.username}
+					+nav_item('/logout') Log Out
+
+		block content
+
+		footer
+			.container
+				.row
+					.col-lg-12
+						ul.list-inline
+							if user
+								li: a(href='/dashboard') Dashboard
+							else
+								li: a(href='/') Home
+							li.footer-menu-divider &sdot;
+							li: a(href='/contact') Contact
+							if user
+								li.footer-menu-divider &sdot;
+								li: a(href='/account') Account
+								li.footer-menu-divider &sdot;
+								li: a(href='/logout') Log Out
+
+						p.copyright.text-muted.small Copyright &copy; Vox, 2015.
+		
+
+		script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js')
+		script(src='/javascripts/bootstrap.min.js')
+		block scripts

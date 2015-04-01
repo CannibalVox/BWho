@@ -21,6 +21,10 @@ h6 {
     font-weight: 700;
 }
 
+.error {
+    color: #d50f25;
+}
+
 .topnav {
     font-size: 14px; 
 }
@@ -28,6 +32,10 @@ h6 {
 .lead {
     font-size: 18px;
     font-weight: 400;
+}
+
+.light {
+    font-weight: 100;
 }
 
 .intro-header {
