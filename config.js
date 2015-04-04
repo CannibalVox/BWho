@@ -11,7 +11,7 @@ config.logging = process.env.NODE_LOGGING || 1;
 config.logging_level = process.env.LOGGING_LEVEL || 'debug';
 config.redis.host = process.env.REDISCLOUD_URL || 'localhost';
 
-config.postgre.url = process.env.DATABASE_URL || 'localhost';
+config.postgre.connection = process.env.HEROKU_POSTGRESQL_VIOLET_URL || 'localhost';
 
 config.web.port = process.env.PORT || 3000;
 

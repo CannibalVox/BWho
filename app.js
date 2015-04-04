@@ -4,7 +4,6 @@ var stormpath = require('express-stormpath');
 var logger = require('morgan');
 var bull = require('bull');
 var path = require('path');
-var url = require('url');
 var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -13,11 +12,7 @@ var routes = require('./routes/index');
 var dashboard = require('./routes/dashboard');
 var account = require('./routes/account');
 
-var redisUrl   = url.parse(config.redis.host);
-var rclient = require("redis").createClient(redisUrl.port, redisUrl.hostname, {no_ready_check: true});
-var redisPassword = redisUrl.auth.split(":")[1];
-rclient.auth(redisPassword);
-
+var rclient = require('./models/cache/cache.js');
 var app = express();
 
 app.set('views', path.join(__dirname, 'views'));
